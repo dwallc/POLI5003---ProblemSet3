@@ -57,7 +57,10 @@ data.key
 \item During its long rule, the PRI worked to present itself as the party of all Mexicans and was therefore something of an ideological chameleon.  Nevertheless, we might hypothesize that people who leaned more to the right would hold more favorable views of this authoritarian party (Americanists may recall V.O. Key's writings about the one-party South), and suppose we want to control for their assessments of the recent performance of the national economy as well as of their personal characteristics.  Is this ideology hypothesis supported by a regression of \texttt{PRIfeel} using Empirical Bayes and the other default settings of MCMCpack?  How do you know?  Describe the estimated effect of ideology on attitudes toward the PRI.  \\
 
 <<label=Answer1>>=
-install.package(MCMCpack)
+if(require(MCMCpack) == FALSE) {
+    install.packages("MCMCpack")
+    require(MCMCpack)
+}
 require(MCMCpack)
 
 @
@@ -123,9 +126,9 @@ print(m1.stan)
 m1.stan.sim <- as.data.frame(m1.stan)
 
 HDI.posterior <- function(data = NULL, mass = .95) {
-    n.var <- dim(data)[2]-2
+    n.vars <- dim(data)[2]-2
     results.HDI <- matrix(rep(NA,3*n.vars), nrow=n.vars, ncol=3)
-    for (var in 1:n.var) {
+    for (var in 1:n.vars) {
         post <- data[,var]
         sorted.post <- sort(post)
         ci.idx <- floor(mass * length(sorted.post))
