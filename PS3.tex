@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+
+\usepackage{graphicx}    	% Enable graphics commands
+\usepackage{lscape}		% Enable landscape with \begin{landscape} until \end{landscape}
+\usepackage{natbib}			% Enable citation commands \citep{}, \citet{}, etc.
+\bibpunct{(}{)}{;}{a}{}{,}		% Formatting for in-text citations
+\usepackage{setspace}		% Enable double-spacing with \begin{spacing}{2} until \end{spacing}.
+\usepackage[utf8]{inputenc} 	% Enable utf8 characters, i.e., accents without coding--just type them in.
+\usepackage[english]{babel}	% English hyphenation and alphabetization.  Other languages available.
+\usepackage{dcolumn}        % For decimal-aligned stargazer output.
+\usepackage[colorlinks=true, urlcolor=blue, citecolor=black, linkcolor=black]{hyperref} % Include hyperlinks with the \url and \href commands.
+\setlength{\tabcolsep}{1pt}	% Make tables slightly narrower by reducing space between columns.
+
+\renewcommand\floatpagefraction{.9}	% These commands allow larger tables and graphics to fit
+\renewcommand\topfraction{.9}		% on a page when default settings would complain.
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+\newcommand{\R}{\textsf{R}~}        %This creates the command \R to typeset the name R correctly.
+
+%\usepackage[left=1in, right=1in]{geometry}	%Turn footnotes into endnotes (commented out).
+%\renewcommand{\footnotesize}{\normalsize}	
+%\usepackage{endnotes}
+%\renewcommand{\footnote}{\endnote}
+%\renewcommand{\section}{\subsection}
+
+\usepackage{Sweave}
+\begin{document}
+\input{PS3-concordance}
+
+\pagestyle{empty}
+
+\begin{center}
+{\Large \textbf{POLI 5003: Problem Set \# 3}
+\end{center}
+
+The \emph{Partido Revolucionario Institucional} (PRI) maintained authoritarian rule over Mexico for more than seventy years, from the end of the Mexican Revolution until after the July 2000 elections.  The dataset accompanying this assignment (\texttt{mex2000.dta}) is drawn from a survey conducted during that electoral campaign.  You will use it to examine the predictors of Mexicans' attitudes towards the PRI and its opponents at that critical time in the country's history. 
+
+\begin{Schunk}
+\begin{Sinput}
+> # Setup
+> require(foreign)
+> mex <- read.dta("mex2000.dta")
+> var.labels <- attr(mex,"var.labels")
+> data.key <- data.frame(var.name=names(mex),var.labels)
+> data.key
+\end{Sinput}
+\begin{Soutput}
+    var.name
+1    PRIfeel
+2    PANfeel
+3    PRDfeel
+4    prefPRI
+5    prefPAN
+6   rightide
+7   econpers
+8    econnat
+9    corrupt
+10     crime
+11    female
+12       ses
+13 churchatt
+                                                                         var.labels
+1                          What is your opinion of the PRI? 0=very bad 10=very good
+2                          What is your opinion of the PAN? 0=very bad 10=very good
+3                          What is your opinion of the PRD? 0=very bad 10=very good
+4                 PRIfeel - feeling toward best-liked opposition party (PAN or PRD)
+5                                                                 PANfeel - PRIfeel
+6                                    Political ideology, 0=very left, 10=very right
+7  Change in personal economic situation, 1 yr. 1=much worse now, 5=much better now
+8  View of national economic sit. over past yr. 1=much worse now, 5=much better now
+9               View of gov't corruption, past yr. 1=much less now, 5=much more now
+10                   View of crime over past year, 1=much less now, 5=much more now
+11                                                              Female? 0=no, 1=yes
+12                                    Socioeconomic status, 1=very low, 6=very high
+13    Church attendance: 1=never, 2=occationally, 3=monthly, 4=weekly, 5=more often
+\end{Soutput}
+\end{Schunk}
+
+\begin{enumerate}
+
+\item During its long rule, the PRI worked to present itself as the party of all Mexicans and was therefore something of an ideological chameleon.  Nevertheless, we might hypothesize that people who leaned more to the right would hold more favorable views of this authoritarian party (Americanists may recall V.O. Key's writings about the one-party South), and suppose we want to control for their assessments of the recent performance of the national economy as well as of their personal characteristics.  Is this ideology hypothesis supported by a regression of \texttt{PRIfeel} using Empirical Bayes and the other default settings of MCMCpack?  How do you know?  Describe the estimated effect of ideology on attitudes toward the PRI.  \\
+
+\begin{Schunk}
+\begin{Sinput}
+> if(require(MCMCpack) == FALSE) {
++     install.packages("MCMCpack")
++     require(MCMCpack)
++ }
+> require(MCMCpack)
+> 
+\end{Sinput}
+\end{Schunk}
+
+
+\item Suppose the literature further suggests that the effect of ideology on respondents' feelings about the PRI would be weaker among those who held more positive assessments of the national economy's recent performance.  Assess this conditional hypothesis using Empirical Bayes and the other default settings of MCMCpack.  \\
+
+\begin{Schunk}
+\begin{Sinput}
+> 
+> 
+> 
+\end{Sinput}
+\end{Schunk}
+
+
+\item Suppose a ``helpful'' reviewer points out that Empirical Bayes imposes a very strong set of priors, and that noninformative priors may yield a different result.  Going well beyond the call of duty, this reviewer even offers some code for you to study and then try out.  Is the reviewer correct that your conclusions regarding the conditional hypothesis change with a different prior?  \\
+
+\begin{Schunk}
+\begin{Sinput}
+> require(rstan)
+> # First we have to define the model
+> PRIfeel.code <- '
++     data {
++         int<lower=0> N;
++         vector[N] PRIfeel;
++         vector[N] rightide;
++         vector[N] econnat;
++         vector[N] female;
++         vector[N] ses;
++         vector[N] churchatt;
++     }
++     transformed data {
++         vector[N] rightideXeconnat;
++         rightideXeconnat <- rightide .* econnat;
++     }
++     parameters {                
++         real beta1;             // coef for constant (default prior is uniform, i.e., noninformative)
++         real beta2;             
++         real beta3;
++         real beta4;
++         real beta5;
++         real beta6;
++         real beta7;
++         real<lower=0> sigma;
++     }
++     model {
++         PRIfeel ~ normal(beta1 + beta2 * rightide + beta3 * econnat +
++                              beta4 * female + beta5 * ses +
++                              beta6 * churchatt + beta7 * rightideXeconnat, sigma);
++     }
++ '
+> # Then put the data into the expected format
+> mex.data <- list(N = nrow(mex), PRIfeel = mex$PRIfeel, rightide = mex$rightide,
++                    econnat = mex$econnat, female = mex$female, 
++                    ses = mex$ses, churchatt = mex$churchatt)
+> # Now we can run it
+> set.seed(324)
+> m1.stan <- stan(model_code = PRIfeel.code, data = mex.data, 
++                 iter = 1000, chains = 3)
