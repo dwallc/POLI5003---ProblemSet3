@@ -72,8 +72,6 @@ Based on the results, the coefficient for \texttt{rightide}, representing the po
 <<label=Answer2>>=
 m2.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female + ses + churchatt + rightide:econnat,data=mex)
 summary(m2.mcmc)
-
-summary(mex)
 @
 
 The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
@@ -152,6 +150,8 @@ HDI.posterior <- function(data = NULL, mass = .95) {
 
 HDI.posterior(data=m1.stan.sim)
 @
+
+While we appreciate the time and effort the reviewer put into providing us with this code, unfortunately the results above do not reveal any siginifcant differences between the ``Empirical Bayes'' model and the ``Noninformative Priors'' model. As the results above demonstrate, the estimated value of beta \#2, representing the coefficient for political ideology is 0.3298. The coefficient value for political ideology from the ``Empirical Bayes'' model is 0.3326, resulting in 0.0028 difference between the two coefficients. Similar differences are revelaed for the other variables in the model. Thus, it is with deep regret we must state that the reviewer is incorrect in stating that we will receive different results with a noninformative prior.
 
 \item Assess the original, unconditional hypothesis using noninformative priors.  Include a graph of the posterior distribution for the effect of ideology on feelings toward the PRI.  Also graph the highest density intervals of the posteriors of the effects of all variables in the model, remembering to standardize the continuous variables by dividing them by twice their standard deviations. 
 
