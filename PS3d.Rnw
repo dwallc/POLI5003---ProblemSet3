@@ -62,8 +62,10 @@ if(require(MCMCpack) == FALSE) {
     require(MCMCpack)
 }
 require(MCMCpack)
-m1.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female + ses + churchatt,data=mex)
+m1.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female + ses + churchatt, data=mex)
 summary(m1.mcmc)
+graphics.off()
+plot(m1.mcmc)
 @
 Based on the results, the coefficient for \texttt{rightide}, representing the political ideology of the survey respondents, is 0.2896. This means that for every one unit increase in political ideology (i.e. as respondents consider themselves more conservative), respondents' feelings towards the PRI will increas by 0.2896 units. In regards to whether this estimated effect is statistically significant, the 95\% high density interval (HDI) for \texttt{rightide} is (0.2373, 0.3419). In other words, the probability that the true posterior parameter value, $\beta_{rightide}$, is between 0.2373 and 0.3419 is 95\%. Because the 95\% HDI for \texttt{rightide} does not include 0, there is sufficient to evidence supporting the hypothesis that repsondents who lean towards the right, ideologically, will have higher feelings for the PRI.
 
