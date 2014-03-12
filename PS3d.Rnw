@@ -63,8 +63,10 @@ if(require(MCMCpack) == FALSE) {
 }
 require(MCMCpack)
 
-@
+posterior1 <- MCMCregress(PRIfeel ~ rightide + econnat + female + ses + churchatt,data=mex)
 
+@
+I do not remember we run mcmcregression. Be honest, I am not sure what is ``default'' settings of MCMCpack! Can we just run rstan without any strings attached?
 
 \item Suppose the literature further suggests that the effect of ideology on respondents' feelings about the PRI would be weaker among those who held more positive assessments of the national economy's recent performance.  Assess this conditional hypothesis using Empirical Bayes and the other default settings of MCMCpack.  \\
 
