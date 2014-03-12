@@ -72,8 +72,11 @@ Based on the results, the coefficient for \texttt{rightide}, representing the po
 <<label=Answer2>>=
 m2.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female + ses + churchatt + rightide:econnat,data=mex)
 summary(m2.mcmc)
+
+summary(mex)
 @
 
+The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
 
 \item Suppose a ``helpful'' reviewer points out that Empirical Bayes imposes a very strong set of priors, and that noninformative priors may yield a different result.  Going well beyond the call of duty, this reviewer even offers some code for you to study and then try out.  Is the reviewer correct that your conclusions regarding the conditional hypothesis change with a different prior?  \\
 
