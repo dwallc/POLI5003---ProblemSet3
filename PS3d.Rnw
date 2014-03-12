@@ -273,6 +273,8 @@ reg.plot <- ggplot(data = reg.results, aes(y = no, x = b)) +
 reg.plot
 @
 
+
+
 \begin{figure}[htbp] 
   \caption{Posterior Distribution of the Effect of Ideology}
   \label{F:postide}
@@ -280,6 +282,9 @@ reg.plot
     \includegraphics[width=5.25in]{PS3d-f1.pdf}
   \end{center}
 \end{figure}
+
+
+
 
 \begin{figure}[htbp] 
   \caption{Posterior Distribution of the Effect of Ideology}
@@ -294,9 +299,17 @@ reg.plot
   \end{footnotesize}
 \end{figure}
 
+
+
 \newpage
 \bibliographystyle{apsr}
 \bibliography{PS3Library}
+
+Figure.2 displays the posterior distribution of the effect on ideology of the PRI. All included variables, except for chuirch attendence and Socio economic status have a positive effect on ideology. However, socioeconomic status has a negative effect on an individuals ideology towards the PRI and church attendance, because the confidence interval contains 0, has no effect.  
+
+
+
+
 
 \end{enumerate}
 \end{document}
