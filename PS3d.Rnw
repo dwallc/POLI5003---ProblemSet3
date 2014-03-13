@@ -79,6 +79,8 @@ m1.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat
 summary(m1.mcmc)
 @
 
+Based on the results, the coefficient for \texttt{rightide}, representing the political ideology of the survey respondents, is 0.2896. This means that for every one unit increase in political ideology (i.e. as respondents consider themselves more conservative), respondents' feelings towards the PRI will increas by 0.2896 units. In regards to whether this estimated effect is statistically significant, the 95\% high density interval (HDI) for \texttt{rightide} is (0.2373, 0.3419). In other words, the probability that the true posterior parameter value, $\beta_{rightide}$, is between 0.2373 and 0.3419 is 95\%. Because the 95\% HDI for \texttt{rightide} does not include 0, there is sufficient to evidence supporting the hypothesis that repsondents who lean towards the right, ideologically, will have higher feelings for the PRI.
+
 \begin{figure}[htbp] 
   \caption{Diadnostic Checking for Convergence for Model \#1 (Part 1)}
   \label{F:postide}
@@ -95,8 +97,8 @@ summary(m1.mcmc)
   \end{center}
 \end{figure}
 
-Based on the results, the coefficient for \texttt{rightide}, representing the political ideology of the survey respondents, is 0.2896. This means that for every one unit increase in political ideology (i.e. as respondents consider themselves more conservative), respondents' feelings towards the PRI will increas by 0.2896 units. In regards to whether this estimated effect is statistically significant, the 95\% high density interval (HDI) for \texttt{rightide} is (0.2373, 0.3419). In other words, the probability that the true posterior parameter value, $\beta_{rightide}$, is between 0.2373 and 0.3419 is 95\%. Because the 95\% HDI for \texttt{rightide} does not include 0, there is sufficient to evidence supporting the hypothesis that repsondents who lean towards the right, ideologically, will have higher feelings for the PRI.
 
+\newpage
 \item Suppose the literature further suggests that the effect of ideology on respondents' feelings about the PRI would be weaker among those who held more positive assessments of the national economy's recent performance.  Assess this conditional hypothesis using Empirical Bayes and the other default settings of MCMCpack.  \\
 
 <<label=Answer2>>=
@@ -104,6 +106,8 @@ m2.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female
                        + ses + churchatt + rightide:econnat,data=mex)
 summary(m2.mcmc)
 @
+
+The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
 
 \begin{figure}[htbp] 
   \caption{Diadnostic Checking for Convergence for Model \#2 (Part 1)}
@@ -121,8 +125,8 @@ summary(m2.mcmc)
   \end{center}
 \end{figure}
 
-The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
 
+\newpage
 \item Suppose a ``helpful'' reviewer points out that Empirical Bayes imposes a very strong set of priors, and that noninformative priors may yield a different result.  Going well beyond the call of duty, this reviewer even offers some code for you to study and then try out.  Is the reviewer correct that your conclusions regarding the conditional hypothesis change with a different prior?  \\
 
 <<label=Answer3>>=
@@ -320,7 +324,7 @@ reg.plot
   \end{footnotesize}
 \end{figure}
 
-Figure \#1 displays the posterior distribution of the effect on ideology of the PRI. As Figure \#1 demonstrates, the 95\% HDI is (0.2306, 0.3356), while the 95\% HDI for the same model, caclulated via ``Empirical Bayes'' is (0.2715, 0.3419); thus the ``Noninformative Prior'' model's HDI is wider by 0.0346 units. Figure \#2, however, displays the estimates, and HDI's, for the independent variables. All included variables, except for chuirch attendence and Socio economic status have a positive effect on ideology. However, socioeconomic status has a negative effect on an individuals ideology towards the PRI and church attendance, because the 95\% HDI contains 0, has no effect. Altogether, these two figures provide evidence in support of the hypothesis stated in question \#1: respondents, whose ideology leans more towards the right, have a more favorable of the PRI.\\
+Figure \#5 displays the posterior distribution of the effect on ideology of the PRI. As Figure \#5 demonstrates, the 95\% HDI is (0.2306, 0.3356), while the 95\% HDI for the same model, caclulated via ``Empirical Bayes'' is (0.2715, 0.3419); thus the ``Noninformative Prior'' model's HDI is wider by 0.0346 units. Figure \#6, however, displays the estimates, and HDI's, for the independent variables. All included variables, except for chuirch attendence and Socio economic status have a positive effect on ideology. However, socioeconomic status has a negative effect on an individuals ideology towards the PRI and church attendance, because the 95\% HDI contains 0, has no effect. Altogether, these two figures provide evidence in support of the hypothesis stated in question \#1: respondents, whose ideology leans more towards the right, have a more favorable of the PRI.\\
 
 \newpage
 \bibliographystyle{apsr}
