@@ -77,11 +77,23 @@ require(MCMCpack)
 m1.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat 
                        + female + ses + churchatt,data=mex)
 summary(m1.mcmc)
-graphics.off()
-plot(m1.mcmc)
 @
 
+\begin{figure}[htbp] 
+  \caption{Diadnostic Checking for Convergence for Model \#1 (Part 1)}
+  \label{F:postide}
+  \begin{center}
+    \includegraphics[width=5.25in]{Rplots-m1mcmc.pdf}
+  \end{center}
+\end{figure}
 
+\begin{figure}[htbp] 
+  \caption{Diadnostic Checking for Convergence for Model \#1 (Part 2)}
+  \label{F:postide}
+  \begin{center}
+    \includegraphics[width=5.25in]{Rplots-m1mcmc2.pdf}
+  \end{center}
+\end{figure}
 
 Based on the results, the coefficient for \texttt{rightide}, representing the political ideology of the survey respondents, is 0.2896. This means that for every one unit increase in political ideology (i.e. as respondents consider themselves more conservative), respondents' feelings towards the PRI will increas by 0.2896 units. In regards to whether this estimated effect is statistically significant, the 95\% high density interval (HDI) for \texttt{rightide} is (0.2373, 0.3419). In other words, the probability that the true posterior parameter value, $\beta_{rightide}$, is between 0.2373 and 0.3419 is 95\%. Because the 95\% HDI for \texttt{rightide} does not include 0, there is sufficient to evidence supporting the hypothesis that repsondents who lean towards the right, ideologically, will have higher feelings for the PRI.
 
@@ -91,9 +103,23 @@ Based on the results, the coefficient for \texttt{rightide}, representing the po
 m2.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female 
                        + ses + churchatt + rightide:econnat,data=mex)
 summary(m2.mcmc)
-graphics.off()
-plot(m2.mcmc)
 @
+
+\begin{figure}[htbp] 
+  \caption{Diadnostic Checking for Convergence for Model \#2 (Part 1)}
+  \label{F:postide}
+  \begin{center}
+    \includegraphics[width=5.25in]{Rplots-m2mcmc.pdf}
+  \end{center}
+\end{figure}
+
+\begin{figure}[htbp] 
+  \caption{Diadnostic Checking for Convergence for Model \#2 (Part 2)}
+  \label{F:postide}
+  \begin{center}
+    \includegraphics[width=5.25in]{Rplots-m2mcmc2.pdf}
+  \end{center}
+\end{figure}
 
 The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
 
@@ -273,8 +299,6 @@ reg.plot <- ggplot(data = reg.results, aes(y = no, x = b)) +
 reg.plot
 @
 
-
-
 \begin{figure}[htbp] 
   \caption{Posterior Distribution of the Effect of Ideology}
   \label{F:postide}
@@ -282,9 +306,6 @@ reg.plot
     \includegraphics[width=5.25in]{PS3d-f1.pdf}
   \end{center}
 \end{figure}
-
-
-
 
 \begin{figure}[htbp] 
   \caption{Posterior Distribution of the Effect of Ideology}
@@ -299,17 +320,11 @@ reg.plot
   \end{footnotesize}
 \end{figure}
 
-
+Figure \#1 displays the posterior distribution of the effect on ideology of the PRI. As Figure \#1 demonstrates, the 95\% HDI is (0.2306, 0.3356), while the 95\% HDI for the same model, caclulated via ``Empirical Bayes'' is (0.2715, 0.3419); thus the ``Noninformative Prior'' model's HDI is wider by 0.0346 units. Figure \#2, however, displays the estimates, and HDI's, for the independent variables. All included variables, except for chuirch attendence and Socio economic status have a positive effect on ideology. However, socioeconomic status has a negative effect on an individuals ideology towards the PRI and church attendance, because the 95\% HDI contains 0, has no effect. Altogether, these two figures provide evidence in support of the hypothesis stated in question \#1: respondents, whose ideology leans more towards the right, have a more favorable of the PRI.\\
 
 \newpage
 \bibliographystyle{apsr}
 \bibliography{PS3Library}
-
-Figure.2 displays the posterior distribution of the effect on ideology of the PRI. All included variables, except for chuirch attendence and Socio economic status have a positive effect on ideology. However, socioeconomic status has a negative effect on an individuals ideology towards the PRI and church attendance, because the confidence interval contains 0, has no effect.  
-
-
-
-
 
 \end{enumerate}
 \end{document}
