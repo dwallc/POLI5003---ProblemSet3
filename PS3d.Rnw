@@ -107,7 +107,7 @@ m2.mcmc <- MCMCregress(PRIfeel ~ rightide + econnat + female
 summary(m2.mcmc)
 @
 
-The hypothesis that those who hold more positive feelings toward the national economy have weaker feelings towards the PRI can not be supported. However, individuals who have a negative view of the national economy, econnat=1, the coef is .3168 but it remains to be insignificant within the model as the interaction term contains 0 within the 95\% HDI interval.
+According to the results, as \texttt{econnat} increases one unit, the effect respondents' political ideology has on their feelings towards the PRI decreases by 0.0158 units, from a base level effect of 0.3326 units. In other words, if \texttt{econnat}$=0$, then as \texttt{rightide} increased one unit, respondents' feelings towards the PRI would increase by 0.3326 units. As \texttt{econnat} increases one unit, however, the effect political ideology has on respondents' feelings toward the PRI is now $0.3326-[0.0158(econnat)]$. Although the coefficient of the interaction term is in the right direction, its 95\% HDI includes the value 0. Therefore, we are unable to fully support the conditional hypothesis. In other words, there is the possibility that the effect of ideology on respondents' feelings about the PRI \emph{may not} be statistically significantly weaker among those who held more positive assessments of the national economy's recent performance.  
 
 \begin{figure}[htbp] 
   \caption{Diadnostic Checking for Convergence for Model \#2 (Part 1)}
